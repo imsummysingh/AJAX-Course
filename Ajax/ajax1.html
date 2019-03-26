@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax 1 - Text File</title>
+</head>
+<body>
+    <button id="button">Get Text File</button>
+
+    <br><br>
+
+    <div id="text"></div>
+
+
+
+    <script>
+        //create event listener
+        document.getElementById('button').addEventListener('click',loadtext);
+
+
+        function loadtext(){
+            //console.log('clicked')
+
+            //create xhr object
+            var xhr = new XMLHttpRequest();
+            //open - type, url, async
+            //200 means OKAY
+            //403 forbideen
+            //404 not found
+
+             xhr.open('GET','sample.txt',true);
+            console.log('ReadyState: ',xhr.readyState);
+
+            //optional--- used for loaders
+            xhr.onprogress = function(){
+                console.log('ReadyState: ',xhr.readyState);
+            } 
+
+            xhr.onload = function(){
+                console.log('ReadyState: ',xhr.readyState);
+                if(this.status == 200){
+                    document.getElementById('text').innerHTML = this.responseText;
+                    //console.log(this.responseText);
+                }
+                else if(this.status == 404)
+                {
+                    document.getElementById('text').innerHTML = 'Page Not Found 404'; 
+                }
+            }
+
+            xhr.onerror = function(){
+                console.log('Request Error........');
+            }
+
+            // xhr.onreadystatechange = function(){
+            //     if(this.readyState == 4 & this.status == 200){
+            //         console.log(this.responseText);
+            //     }
+            // }
+
+
+            //ready state value
+            //0:request not initialized
+            //1:server connection established
+            //2:request received
+            //3:processing req
+            //4:req finished and response is ready
+
+            //sends request
+            xhr.send();
+        }
+
+    </script>
+</body>
+</html>

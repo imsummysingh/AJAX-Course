@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax 4 - Ajax & PHP Forms</title>
+</head>
+<body>
+    <button id="btn">Get Name</button>
+    <hr>
+    <h1>GET Form</h1>
+    <form method="GET" action="process.php">
+        <input type="text" name="name">
+        <input type="submit" value="submit">
+    </form>
+
+    <h1>AJAX GET Form</h1>
+    <form id="getForm">
+        <input type="text" id="name1" name="name">
+        <input type="submit" value="submit">
+    </form>
+
+    <h1>POST Form</h1>
+    <form method="POST" action="process.php">
+        <input type="text" id="name1" name="name">
+        <input type="submit" value="submit">
+    </form>
+
+    <h1>AJAX POST Form</h1>
+    <form id="postForm">
+        <input type="text" id="name2" name="name">
+        <input type="submit" value="submit">
+    </form>
+
+    <script>
+        document.getElementById('btn').addEventListener('click',getName);
+
+        // function getName(){
+        //     var xhr = new XMLHttpRequest();
+
+        //     xhr.open('GET','process.php?name=Summy',true);
+
+        //     xhr.onload = function(){
+        //         console.log(this.responseText);
+        //     }
+
+        //     xhr.send(); 
+        // }
+
+
+        document.getElementById('getForm').addEventListener('submit',getName);
+
+        function getName(e){
+            e.preventDefault();
+            var name = document.getElementById('name1').value;
+            
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET','process.php?name='+name,true);
+
+            xhr.onload = function(){
+                console.log(this.responseText);
+               //document.write(this.responseText);
+            }
+
+            xhr.send(); 
+        }
+
+        document.getElementById('postForm').addEventListener('submit',postName);
+
+        function postName(e){
+            e.preventDefault();
+            var name = document.getElementById('name2').value;
+            var params = "name="+name;
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST','process.php',true);
+
+            xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+
+            xhr.onload = function(){
+                console.log(this.responseText);
+            }
+
+            xhr.send(params); 
+        }
+
+    </script>
+</body>
+</html>
